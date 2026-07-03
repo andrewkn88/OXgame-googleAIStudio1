@@ -1,0 +1,6 @@
+{
+  "name": "실시간 OX 퀴즈",
+  "description": "Firebase Firestore를 활용한 실시간 교사용/학생용 OX 퀴즈 게임",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

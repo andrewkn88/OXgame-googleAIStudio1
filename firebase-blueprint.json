@@ -1,0 +1,57 @@
+{
+  "entities": {
+    "Question": {
+      "title": "Question",
+      "description": "An OX Quiz question structure.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "question": { "type": "string" },
+        "answer": { "type": "string", "enum": ["O", "X"] },
+        "explanation": { "type": "string" }
+      },
+      "required": ["id", "question", "answer"]
+    },
+    "Player": {
+      "title": "Player",
+      "description": "A student player inside the active game.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "score": { "type": "number" },
+        "lastAnswer": { "type": "string", "enum": ["O", "X", null] },
+        "lastAnswerTime": { "type": "number" },
+        "isCorrect": { "type": "boolean" },
+        "streak": { "type": "number" },
+        "joinedAt": { "type": "number" }
+      },
+      "required": ["id", "name", "score", "joinedAt"]
+    },
+    "GameState": {
+      "title": "GameState",
+      "description": "Global state of the active OX Quiz room.",
+      "type": "object",
+      "properties": {
+        "currentQuestionIndex": { "type": "number" },
+        "status": { "type": "string", "enum": ["lobby", "playing", "showing_answer", "finished"] },
+        "questionTimer": { "type": "number" },
+        "timerActive": { "type": "boolean" },
+        "questions": { "type": "array" },
+        "currentQuestionActiveAt": { "type": "number" },
+        "totalPlayers": { "type": "number" }
+      },
+      "required": ["currentQuestionIndex", "status", "questionTimer", "timerActive", "questions"]
+    }
+  },
+  "firestore": {
+    "/games/main": {
+      "schema": "GameState",
+      "description": "Main game coordination document"
+    },
+    "/games/main/players/{playerId}": {
+      "schema": "Player",
+      "description": "The connected student players"
+    }
+  }
+}
